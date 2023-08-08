@@ -26,6 +26,7 @@ const formatReleaseDate = (timestamp) => {
     return `${year}-${month}-${day}`;
   };
 
+
   // ref for filtered text
   const filterText = ref('');
 
@@ -40,10 +41,10 @@ const formatReleaseDate = (timestamp) => {
     });
   });
 
+
   // Ref for ADDING a movie
   const newMovieName = ref('');
   const newMovieSynopsis = ref('');
-
 
   // Function for ADDING a movie
   const addMovie = async () => {
@@ -59,6 +60,20 @@ const formatReleaseDate = (timestamp) => {
     } catch (error) {
       console.log(error);
       console.log(movieStore);
+    }
+  }
+
+  // Ref for DELETING a movie
+  const movieToDelete = ref(null);
+
+  // Function for DELETING a movie
+  const deleteMovie = async (movieId) => {
+    try {
+      console.log(movieId);
+      await movieStore.deleteMovie(movieId);
+    } catch (error) {
+      console.log(error);
+      console.log(movieToDelete);
     }
   }
 
@@ -90,6 +105,9 @@ const formatReleaseDate = (timestamp) => {
           <td>{{ movie.name }}</td>
           <td>{{ movie.synopsis }}</td>
           <td>{{ formatReleaseDate(movie.createdAt) }}</td>
+          <td>
+            <button @click="deleteMovie(movie.id)">Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
