@@ -5,6 +5,6 @@
 
 <template>
   <main>
-    <h1>Home</h1>
+    <h1>Project</h1>
   </main>
 </template>
