@@ -26,6 +26,7 @@ const formatReleaseDate = (timestamp) => {
     return `${year}-${month}-${day}`;
   };
 
+
   // ref for filtered text
   const filterText = ref('');
 
@@ -40,10 +41,10 @@ const formatReleaseDate = (timestamp) => {
     });
   });
 
+
   // Ref for ADDING a movie
   const newMovieName = ref('');
   const newMovieSynopsis = ref('');
-
 
   // Function for ADDING a movie
   const addMovie = async () => {
@@ -62,6 +63,20 @@ const formatReleaseDate = (timestamp) => {
     }
   }
 
+  // Ref for DELETING a movie
+  const movieToDelete = ref(null);
+
+  // Function for DELETING a movie
+  const deleteMovie = async (movieId) => {
+    try {
+      console.log(movieId);
+      await movieStore.deleteMovie(movieId);
+    } catch (error) {
+      console.log(error);
+      console.log(movieToDelete);
+    }
+  }
+
 </script>
 
 <template>
@@ -70,7 +85,16 @@ const formatReleaseDate = (timestamp) => {
     <div class="main-header">
       <h1>Movies</h1>
       <!-- <p>Here are some movies that we have worked on.</p> -->
+      <div class="add-movie-form">
+        <!-- <h2>Add a movie</h2> -->
+        <div class="input-row">
+          <input class="input movie" type="text" v-model="newMovieName" placeholder="Name" />
+          <input class="input movie" type="text" v-model="newMovieSynopsis" placeholder="Synopsis" />
+          <button class="pri-butt" @click="addMovie">Add Movie</button>
+        </div>
+      </div>
     </div>
+    <!-- temporary add movie form -->
     <div class="filter">
       <input class="input" type="text" v-model="filterText" placeholder="Search movies by name or synopsis..." />
     </div>
@@ -90,21 +114,14 @@ const formatReleaseDate = (timestamp) => {
           <td>{{ movie.name }}</td>
           <td>{{ movie.synopsis }}</td>
           <td>{{ formatReleaseDate(movie.createdAt) }}</td>
+          <td>
+            <button class="pri-butt" @click="deleteMovie(movie.id)">Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
   </main>
-
-  <!-- temporary add movie form -->
-  <div class="add-movie-form">
-    <h2>Add a movie</h2>
-    <div class="input-row">
-      <input class="input movie" type="text" v-model="newMovieName" placeholder="Name" />
-      <input class="input movie" type="text" v-model="newMovieSynopsis" placeholder="Synopsis" />
-      <button class="pri-butt" @click="addMovie">Add Movie</button>
-    </div>
-  </div>
 </template>
 
 <style scoped>
@@ -112,11 +129,13 @@ const formatReleaseDate = (timestamp) => {
 @media (min-width: 760px) {
   .main-header {
     display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
+    /* flex-direction: column; */
+    margin-bottom: 20px;
     padding: 10px 0px;
     min-width: 500px;
     background-color: #181818;
+    justify-content: space-between;
+    align-items: center;
   }
   .main-header h1 {
     font-size: 60px;
@@ -124,7 +143,6 @@ const formatReleaseDate = (timestamp) => {
   }
   .filter {
     display: flex;
-    justify-content: center;
     align-items: center;
     margin-bottom: 20px;
     margin-top: 0px;
@@ -137,7 +155,7 @@ const formatReleaseDate = (timestamp) => {
     border: 1px solid #646464;
     color: #9F9F9F;
   }
-  .filter-input:focus {
+  .input:focus {
     outline: none;
     border: 1px solid #01BD7E;
     color: #fff;
@@ -173,7 +191,6 @@ const formatReleaseDate = (timestamp) => {
 
 /* Add Movie Form */
 .add-movie-form {
-  margin-top: 40px;
   display: flex;
   flex-direction: column;
 }
@@ -182,10 +199,13 @@ const formatReleaseDate = (timestamp) => {
   font-size: 28px;
 }
 .input-row {
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 .add-movie-form .input {
   margin: 0px 10px;
+  width: 200px;
 }
 .add-movie-form .input:nth-child(1) {
   margin-left: 0px;

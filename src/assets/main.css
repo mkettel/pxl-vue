@@ -25,6 +25,18 @@ a,
   background-color: #01BD7E;
   opacity: 0.8;
 }
+.sec-butt {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  border: 1px solid #9F9F9F;
+  color: #01BD7E;
+}
+.sec-butt:hover {
+  background-color: #01BD7E;
+  opacity: 0.8;
+}
 
 @media (hover: hover) {
   a:hover {
