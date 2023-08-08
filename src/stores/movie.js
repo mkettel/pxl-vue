@@ -45,6 +45,21 @@ export const useMoviesStore = defineStore({
       } finally {
         this.loading = false;
       }
+    },
+    async addMovie(movie) {
+      const response = await fetch('https://64cd647fbb31a268409aa8a6.mockapi.io/api/movies', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(movie)
+      });
+      if (!response.ok) {
+        throw new Error(`error! status: ${response.status} failed to add movie`);
+      }
+      const data = await response.json();
+      this.movies.push(data); // add the new movie to the movies array
+
     }
   }
 });

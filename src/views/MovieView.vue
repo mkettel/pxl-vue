@@ -40,6 +40,28 @@ const formatReleaseDate = (timestamp) => {
     });
   });
 
+  // Ref for ADDING a movie
+  const newMovieName = ref('');
+  const newMovieSynopsis = ref('');
+
+
+  // Function for ADDING a movie
+  const addMovie = async () => {
+    const newMovie = {
+      name: newMovieName.value,
+      synopsis: newMovieSynopsis.value,
+      createdAt: Date.now() / 1000
+    };
+    try {
+      await movieStore.addMovie(newMovie);
+      addMovie.value.name = ''; // clear the name
+      addMovie.value.synopsis = ''; // clear the synopsis
+    } catch (error) {
+      console.log(error);
+      console.log(movieStore);
+    }
+  }
+
 </script>
 
 <template>
@@ -50,7 +72,7 @@ const formatReleaseDate = (timestamp) => {
       <!-- <p>Here are some movies that we have worked on.</p> -->
     </div>
     <div class="filter">
-      <input class="filter-input" type="text" v-model="filterText" placeholder="Search movies by name or synopsis..." />
+      <input class="input" type="text" v-model="filterText" placeholder="Search movies by name or synopsis..." />
     </div>
     <div class="table-container">
       <div v-if="movieStore.loading" class="movie-loader">Loading...</div>
@@ -73,6 +95,16 @@ const formatReleaseDate = (timestamp) => {
     </table>
   </div>
   </main>
+
+  <!-- temporary add movie form -->
+  <div class="add-movie-form">
+    <h2>Add a movie</h2>
+    <div class="input-row">
+      <input class="input movie" type="text" v-model="newMovieName" placeholder="Name" />
+      <input class="input movie" type="text" v-model="newMovieSynopsis" placeholder="Synopsis" />
+      <button class="pri-butt" @click="addMovie">Add Movie</button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -82,7 +114,7 @@ const formatReleaseDate = (timestamp) => {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 10px 0px;
     min-width: 500px;
     background-color: #181818;
   }
@@ -97,7 +129,7 @@ const formatReleaseDate = (timestamp) => {
     margin-bottom: 20px;
     margin-top: 0px;
   }
-  .filter-input {
+  .input {
     width: 30%;
     padding: 10px;
     border-radius: 5px;
@@ -109,7 +141,6 @@ const formatReleaseDate = (timestamp) => {
     outline: none;
     border: 1px solid #01BD7E;
     color: #fff;
-
   }
   .table-container {
     padding: 30px;
@@ -117,7 +148,6 @@ const formatReleaseDate = (timestamp) => {
     justify-content: center;
     align-items: center;
     width: 100%;
-    border: 1px solid #646464;
     border: 1px solid #01BD7E;
     border-radius: 10px;
   }
@@ -135,11 +165,32 @@ const formatReleaseDate = (timestamp) => {
     text-align: center;
     cursor: pointer;
   }
-
   .table-container tr:hover {
     background-color: #646464;
-
+    border-radius: 10px;
   }
 }
 
+/* Add Movie Form */
+.add-movie-form {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+.add-movie-form h2 {
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+.input-row {
+  margin-bottom: 20px;
+}
+.add-movie-form .input {
+  margin: 0px 10px;
+}
+.add-movie-form .input:nth-child(1) {
+  margin-left: 0px;
+}
+.add-movie-form .pri-butt {
+  margin-left: 10px;
+}
 </style>

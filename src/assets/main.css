@@ -14,6 +14,17 @@ a,
   color: hsla(160, 100%, 37%, 1);
   transition: 0.4s;
 }
+.pri-butt {
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #01BD7E;
+  cursor: pointer;
+  border: none;
+}
+.pri-butt:hover {
+  background-color: #01BD7E;
+  opacity: 0.8;
+}
 
 @media (hover: hover) {
   a:hover {
