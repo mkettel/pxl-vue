@@ -14,8 +14,8 @@ import HelloWorld from './components/HelloWorld.vue'
     </div>
     <nav>
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/project">Projects</RouterLink>
       <RouterLink to="/movie">Movies</RouterLink>
+      <a href="https://github.com/mkettel/pxl-vue" target="_blank">Github</a>
     </nav>
   </header>
 
