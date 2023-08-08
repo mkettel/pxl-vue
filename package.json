@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "pinia": "^2.1.4",
+    "vercel": "^31.2.2",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },
