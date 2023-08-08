@@ -106,7 +106,7 @@ const formatReleaseDate = (timestamp) => {
           <td>{{ movie.synopsis }}</td>
           <td>{{ formatReleaseDate(movie.createdAt) }}</td>
           <td>
-            <button @click="deleteMovie(movie.id)">Delete</button>
+            <button class="pri-butt" @click="deleteMovie(movie.id)">Delete</button>
           </td>
         </tr>
       </tbody>
