@@ -2,7 +2,7 @@
 // use this endpoint: https://64cd647fbb31a268409aa8a6.mockapi.io/api
 // import the movie Store
 import { useMoviesStore } from '@/stores/movie';
-import { onMounted } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 
 // Get the movie Store from the store
 const movieStore = useMoviesStore();
@@ -26,6 +26,20 @@ const formatReleaseDate = (timestamp) => {
     return `${year}-${month}-${day}`;
   };
 
+  // ref for filtered text
+  const filterText = ref('');
+
+  // computed for filtered movies
+  const filteredMovies = computed(() => {
+    // if there is no filter text, return all movies
+    if (!filterText.value) return movieStore.movies;
+    // otherwise, return the filtered movies
+    return movieStore.movies.filter((movie) => {
+      return movie.name.toLowerCase().includes(filterText.value.toLowerCase()) ||
+      movie.synopsis.toLowerCase().includes(filterText.value.toLowerCase())
+    });
+  });
+
 </script>
 
 <template>
@@ -33,7 +47,10 @@ const formatReleaseDate = (timestamp) => {
 
     <div class="main-header">
       <h1>Movies</h1>
-      <p>Here are some movies that we have worked on.</p>
+      <!-- <p>Here are some movies that we have worked on.</p> -->
+    </div>
+    <div class="filter">
+      <input class="filter-input" type="text" v-model="filterText" placeholder="Search movies..." />
     </div>
     <div class="table-container">
       <div v-if="movieStore.loading">Loading...</div>
@@ -47,7 +64,7 @@ const formatReleaseDate = (timestamp) => {
           </tr>
       </thead>
       <tbody>
-        <tr v-for="movie in movieStore.movies" :key="movie.id">
+        <tr v-for="movie in filteredMovies" :key="movie.id">
           <td>{{ movie.name }}</td>
           <td>{{ movie.synopsis }}</td>
           <td>{{ formatReleaseDate(movie.createdAt) }}</td>
@@ -64,10 +81,35 @@ const formatReleaseDate = (timestamp) => {
   .main-header {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
-    padding: 30px;
+    margin-bottom: 10px;
+    padding: 10px;
     min-width: 500px;
     background-color: #181818;
+  }
+  .main-header h1 {
+    font-size: 60px;
+    /* color: #01BD7E; */
+  }
+  .filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 0px;
+  }
+  .filter-input {
+    width: 30%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid #646464;
+    color: #9F9F9F;
+  }
+  .filter-input:focus {
+    outline: none;
+    border: 1px solid #01BD7E;
+    color: #fff;
+
   }
   .table-container {
     padding: 30px;
@@ -76,6 +118,7 @@ const formatReleaseDate = (timestamp) => {
     align-items: center;
     width: 100%;
     border: 1px solid #646464;
+    border: 1px solid #01BD7E;
     border-radius: 10px;
   }
   .table-container table {
