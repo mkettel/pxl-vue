@@ -50,10 +50,10 @@ const formatReleaseDate = (timestamp) => {
       <!-- <p>Here are some movies that we have worked on.</p> -->
     </div>
     <div class="filter">
-      <input class="filter-input" type="text" v-model="filterText" placeholder="Search movies..." />
+      <input class="filter-input" type="text" v-model="filterText" placeholder="Search movies by name or synopsis..." />
     </div>
     <div class="table-container">
-      <div v-if="movieStore.loading">Loading...</div>
+      <div v-if="movieStore.loading" class="movie-loader">Loading...</div>
       <div v-if="movieStore.error">{{ movieStore.error }}</div>
       <table v-else>
         <thead>
@@ -77,7 +77,7 @@ const formatReleaseDate = (timestamp) => {
 
 <style scoped>
 
-@media (min-width: 860px) {
+@media (min-width: 760px) {
   .main-header {
     display: flex;
     flex-direction: column;
