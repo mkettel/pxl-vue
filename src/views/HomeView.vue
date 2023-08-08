@@ -4,9 +4,9 @@
 import { ref, onMounted } from 'vue';
 
 const data = ref({
-  name: 'PXL',
+  name: 'Beach Pup',
   location: 'Los Angeles',
-  description: 'A Dogs favorite creative agency based in LA',
+  description: 'A Dogs favorite creative agency',
 });
 
 
