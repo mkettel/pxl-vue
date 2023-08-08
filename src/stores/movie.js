@@ -69,6 +69,24 @@ export const useMoviesStore = defineStore({
       }
       // remove the movie from the movies array by filtering out the movie with the id that matches the movieId
       this.movies = this.movies.filter(movie => movie.id !== movieId);
+    },
+    async editMovie(movieId, updatedMovie) {
+      const response = await fetch(`https://64cd647fbb31a268409aa8a6.mockapi.io/api/movies/${movieId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(updatedMovie)
+      });
+      if (!response.ok) {
+          throw new Error(`error! status: ${response.status} failed to edit movie`);
+      }
+      const data = await response.json();
+      // Find the index of the movie in th movies array
+      const index = this.movies.findIndex(movie => movie.id === movieId);
+
+      // Update movie with the new details
+      this.movies[index] = data;
     }
   }
 });

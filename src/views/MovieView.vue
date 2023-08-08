@@ -55,8 +55,8 @@ const formatReleaseDate = (timestamp) => {
     };
     try {
       await movieStore.addMovie(newMovie);
-      addMovie.value.name = ''; // clear the name
-      addMovie.value.synopsis = ''; // clear the synopsis
+      newMovieName.value = ''; // clear the name
+      newMovieSynopsis.value = ''; // clear the synopsis
     } catch (error) {
       console.log(error);
       console.log(movieStore);
@@ -76,6 +76,7 @@ const formatReleaseDate = (timestamp) => {
       console.log(movieToDelete);
     }
   }
+
 
 </script>
 
@@ -121,6 +122,7 @@ const formatReleaseDate = (timestamp) => {
       </tbody>
     </table>
   </div>
+
   </main>
 </template>
 
