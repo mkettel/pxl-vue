@@ -16,5 +16,13 @@ The user can add, delete, and filter the movie list.
 - [VueAppPXL](https://vue-pxl-project.vercel.app/)
 
 ## Running
-Run "npm install" to install dependencies 
-Run "npm run dev" to start the localserver
+``` bash
+# Install dependencies (only the first time)
+npm install
+
+# Run the local server at localhost:8080
+npm run dev
+
+# Build for production in the dist/ directory
+npm run build
+```
