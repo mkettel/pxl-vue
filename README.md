@@ -13,7 +13,7 @@ The user can add, delete, and filter the movie list.
 |             |                  |
 
 ## Hosted At
-- [BlazorApp](https://vue-pxl-project.vercel.app/)
+- [VueAppPXL](https://vue-pxl-project.vercel.app/)
 
 ## Running
 Run "npm install" to install dependencies 
